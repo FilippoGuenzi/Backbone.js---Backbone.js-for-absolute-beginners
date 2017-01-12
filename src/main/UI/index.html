@@ -10,7 +10,7 @@
 <!-- Your HTML -->
 <!-- ========= -->
 <script type="text/x-handlebars-template" id="search_template">
-    <label>Search</label>
+    <label>{{search_label}}</label>
     <input type="text" id="search_input" />
     <input type="button" id="search_button" value="Search" />
 </script>
@@ -40,10 +40,11 @@
         },
 
         render: function(){
+            var model = {search_label : 'My search'};
             var templateContent = $('#search_template').html();
             var compiledTemplate = Handlebars.compile(templateContent);
             //$el is a jQuery object that has functions you can use to push content, like the Hello World here.
-            this.$el.html(compiledTemplate);
+            this.$el.html(compiledTemplate(model));
         },
 
         events : {
