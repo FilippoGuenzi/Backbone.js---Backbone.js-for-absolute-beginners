@@ -43,6 +43,8 @@
         },
 
         render: function(){
+            var templateContent = $('#search_template').html();
+            var compiledTemplate = Handlebars.compile(templateContent);
             //$el is a jQuery object that has functions you can use to push content, like the Hello World here.
             this.$el.html("Hello world");
         }
