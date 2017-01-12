@@ -34,9 +34,6 @@
     // your JS code goes here
     var AppView = Backbone.View.extend({
 
-        //the html element where view will be rendered
-        el: '#search_container',
-
         //first function to be run
         initialize: function(){
             this.render();
@@ -50,7 +47,7 @@
         }
     });
 
-    var appView = new AppView();
+    var appView = new AppView({el: '#search_container'});
 
 </script>
 
