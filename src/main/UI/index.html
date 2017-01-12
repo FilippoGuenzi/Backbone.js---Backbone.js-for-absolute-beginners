@@ -44,6 +44,14 @@
             var compiledTemplate = Handlebars.compile(templateContent);
             //$el is a jQuery object that has functions you can use to push content, like the Hello World here.
             this.$el.html(compiledTemplate);
+        },
+
+        events : {
+            'click input[type=button]': 'doSearch'
+        },
+
+        doSearch: function(event){
+            alert('Search for ' + $('#search_input').val());
         }
     });
 
