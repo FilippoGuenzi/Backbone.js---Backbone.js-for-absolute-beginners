@@ -25,6 +25,22 @@
 <!-- =============== -->
 <script type="text/javascript">
     // your JS code goes here
+    var AppView = Backbone.View.extend({
+
+        //the html element where view will be rendered
+        el: '#container',
+
+        //first function to be run
+        initialize: function(){
+            this.render();
+        },
+
+        render: function(){
+            //$el is a jQuery object that has functions you can use to push content, like the Hello World here.
+            this.$el.html("Hello world");
+        }
+    });
+
 </script>
 
 </body>
