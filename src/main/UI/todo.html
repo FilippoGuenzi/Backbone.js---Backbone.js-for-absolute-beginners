@@ -20,6 +20,13 @@
     </section>
 </section>
 
+<script type="text/x-handlebars-template" id="item-template">
+    <div class="view">
+        <input type="checkbox" class="toggle"/>
+        <label>{{title}}</label>
+    </div>
+</script>
+
 <!-- ========= -->
 <!-- Libraries -->
 <!-- ========= -->
@@ -34,6 +41,7 @@
 <script type="text/javascript">
     // your JS code goes here
     var app = {}; // create namespace for our app
+
     app.Todo = Backbone.Model.extend({
         defaults: {
             title: '',
@@ -47,6 +55,19 @@
     });
 
     app.todoList = new app.TodoList();
+
+    app.TodoView = Backbone.View.extend({
+        tagName: 'li',
+        templateContent: $('#item-template').html(),
+        render: function(){
+            var compiledTemplate = Handlebars.compile(templateContent);
+            this.$el.html(compiledTemplate(this.model.toJSON()));
+            return this; //new compared to previous exercise : enable chained calls
+        }
+    });
+
+    var view = new app.TodoView({})
+
 </script>
 
 </body>
