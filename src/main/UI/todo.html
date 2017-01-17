@@ -42,15 +42,17 @@
     // your JS code goes here
     var app = {}; // create namespace for our app
 
-    app.Todo = Backbone.Model.extend({
+    app.TodoModel = Backbone.Model.extend({
         defaults: {
             title: '',
             completed: false
         }
     });
 
+    app.todoModel = new app.TodoModel({title: 'Yoyo'});
+
     app.TodoList = Backbone.Collection.extend({
-        model: app.Todo,
+        model: app.TodoModel,
         localStorage: new Store('backbone-todo')
     });
 
@@ -59,14 +61,14 @@
     app.TodoView = Backbone.View.extend({
         tagName: 'li',
         templateContent: $('#item-template').html(),
-        render: function(){
+        render: function () {
             var compiledTemplate = Handlebars.compile(templateContent);
             this.$el.html(compiledTemplate(this.model.toJSON()));
             return this; //new compared to previous exercise : enable chained calls
         }
     });
 
-    var view = new app.TodoView({})
+    app.todoView = new app.TodoView({model:app.todoModel});
 
 </script>
 
