@@ -13,7 +13,7 @@
 <section id="todoapp">
     <header id="header">
         <h1>Todos</h1>
-        <input id="new-todo" placeholder="What needs to be done?">
+        <input id="new-todo" placeholder="What needs to be done?"/>
     </header>
     <section id="main">
         <ul id="todo-list"></ul>
@@ -49,7 +49,7 @@
         }
     });
 
-    app.todoModel = new app.TodoModel({title: 'Yoyo'});
+    //app.todoModel = new app.TodoModel({title: 'Yoyo'});
 
     app.TodoList = Backbone.Collection.extend({
         model: app.TodoModel,
@@ -68,7 +68,43 @@
         }
     });
 
-    app.todoView = new app.TodoView({model:app.todoModel});
+    //app.todoView = new app.TodoView({model:app.todoModel});
+
+    app.AppView = Backbone.View.extend({
+        el:'#todoapp',
+        initialize:function(){
+            this.input = this.$('#new-todo');
+            app.todoList.on('add', this.addOne, this);
+            app.todoList.on('reset', this.addAll, this);
+            app.todoList.fetch();
+        },
+        events:{
+            'keypress #new-todo' : 'createToDoOnEnter'
+        },
+        createToDoOnEnter:function(e){
+            if(e.which !== 13 || !this.input.val().trim()){
+                return;
+            }
+            app.todoList.create(this.newAttributes());
+            this.input.val('');
+        },
+        addOne:function(todo){
+            var view = new app.TodoView({model:todo});
+            $('#todo-list').append(view.render().el);
+        },
+        addAll:function(){
+            this.$('#todo-list').html('');
+            app.todoList.each(this.addOne, this);
+        },
+        newAttributes:function(){
+            return {
+                title: this.input.val().trim(),
+                completed: false
+            };
+        }
+    });
+
+    app.appView = new app.AppView();
 
 </script>
 
